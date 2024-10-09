@@ -565,15 +565,6 @@ export class HaServiceControl extends LitElement {
     }
 
     const selector = dataField?.selector ?? { text: undefined };
-    const type = Object.keys(selector)[0];
-    const enhancedSelector = ["action", "condition", "trigger"].includes(type)
-      ? {
-          [type]: {
-            ...selector[type],
-            path: [dataField.key],
-          },
-        }
-      : selector;
 
     const showOptional = showOptionalToggle(dataField);
 
@@ -614,7 +605,7 @@ export class HaServiceControl extends LitElement {
               (!this._value?.data ||
                 this._value.data[dataField.key] === undefined))}
             .hass=${this.hass}
-            .selector=${enhancedSelector}
+            .selector=${selector}
             .key=${dataField.key}
             @value-changed=${this._serviceDataChanged}
             .value=${this._value?.data
